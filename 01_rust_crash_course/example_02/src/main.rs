@@ -1,4 +1,5 @@
 mod print;
+mod types;
 mod vars;
 
 fn main() {
@@ -11,5 +12,8 @@ fn main() {
     println!();
 
     vars::run();
+    println!();
+
+    types::run();
     println!();
 }
