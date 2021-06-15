@@ -1,0 +1,10 @@
+# Ignore files with no extension (executables)
+# 1. Ignore everything
+# 2. Include folders
+# 3. Include anything with a "."
+*
+!*/
+!*.*
+
+# Target directory (executables)
+target
