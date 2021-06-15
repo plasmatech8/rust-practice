@@ -17,13 +17,6 @@ pub fn run() {
     let x: i64 = 2147483648;
     print_type_of(&x);
 
-    // Arrays & tuples
-    let arr1 = [1, 2, 3, 4, 5, 6];
-    let arr2: [i32; 3] = [0; 3];
-    println!("{:?}", arr1);
-    println!("{:?}", arr2);
-    println!("{:?}", (1, true, "hello"));
-
     // Strings and Chars
     let string = "Hello World!";
     let character = 'c';

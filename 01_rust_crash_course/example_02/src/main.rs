@@ -1,4 +1,5 @@
 mod print;
+mod tuples;
 mod types;
 mod vars;
 
@@ -8,12 +9,15 @@ fn main() {
 
     // Use module functions
 
+    println!("========== Print ==========");
     print::run();
-    println!();
 
+    println!("========== Vars ==========");
     vars::run();
-    println!();
 
+    println!("========== Types ==========");
     types::run();
-    println!();
+
+    println!("========== Tuples/Array ==========");
+    tuples::run();
 }

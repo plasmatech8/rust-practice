@@ -17,5 +17,5 @@ pub fn run() {
     println!("Pi: {:.3}", 3.14159265359);
 
     // Print an object
-    println!("{:?}", (12, true, "hello"))
+    println!("{:?}", (12, true, "hello"));
 }

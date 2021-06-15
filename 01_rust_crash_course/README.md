@@ -13,6 +13,9 @@ Contexnts:
   - [04. Print formatting & debug](#04-print-formatting--debug)
   - [05. Variables](#05-variables)
   - [06. Types](#06-types)
+  - [06. Assertions](#06-assertions)
+  - [07. Tuples, Arrays, Vectors](#07-tuples-arrays-vectors)
+  - [08. Conditionals](#08-conditionals)
 
 ## Introduction
 
@@ -123,6 +126,9 @@ pub fn run() {
 }
 ```
 
+An exclamation mark `!` function is a macro. A macro is a special type of function.
+It can take a variable number of arguments.
+
 ## 05. Variables
 
 All variables are immutable. They hold primitive data or references.
@@ -178,13 +184,6 @@ pub fn run() {
     let x: i64 = 2147483648;
     print_type_of(&x);
 
-    // Arrays & tuples
-    let arr1 = [1, 2, 3, 4, 5, 6];
-    let arr2: [i32; 3] = [0; 3];
-    println!("{:?}", arr1);
-    println!("{:?}", arr2);
-    println!("{:?}", (1, true, "hello"));
-
     // Strings and Chars
     let string = "Hello World!";
     let character = 'c';
@@ -199,3 +198,98 @@ pub fn run() {
     }
 }
 ```
+
+## 06. Assertions
+
+We can do runtime assertions:
+```rs
+assert_eq!(2, 2);
+assert_eq!(2, 3);
+```
+```
+thread 'main' panicked at 'assertion failed: `(left == right)`
+  left: `2`,
+ right: `3`', src/assert.rs:3:5
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
+## 07. Tuples, Arrays, Vectors
+
+Tuples:
+* Max 12 elements
+* Each element can have any type
+* Access elements using `person.0`
+* Stack allocated
+
+Arrays:
+* Fixed length
+* Only one type
+* Use `[i32; 3]` to specify the type and length
+* Use `[42; 3]` to create an array of length 3, containing 42s
+* Stack allocated
+* Slice references are possible (but you cannot mutate which are referenced by the slice)
+
+Vectors:
+* Growable arrays
+
+Note: we can write `mem::size_of_val` instead of `std::mem::size_of_val` if we use `use std::mem`.
+
+```rs
+pub fn run() {
+    // Tuples
+    println!("--- Tuples ---");
+
+    let person = ("Brad", "Mass", 37);
+    let person_again: (&str, &str, i8) = ("Brad", "Mass", 37);
+    println!("{:?}", person);
+    println!("{:?}", person_again);
+    println!("{} | {} | {}", person.0, person.1, person.2); // indexing
+
+    // Arrays
+    println!("--- Arrays ---");
+
+    let mut arr1 = [1, 2, 3, 4, 5, 6];
+    arr1[0] = 42; // Assignment
+    println!("{:?}", arr1);
+
+    let arr2: [i32; 5] = [1, 2, 3, 4, 5]; // Same element N times
+    let arr3: [i32; 3] = [10; 3];
+    println!("{:?}", arr1);
+    println!("{:?}", arr2);
+    println!("{:?}", arr3);
+
+    let arr4: [[i32; 3]; 3] = [[1; 3]; 3]; // 2D array
+    println!("{:?}", arr4);
+    println!("{:?}", arr4[2][2]); // Indexing (&arr4[2][2] also works)
+    println!("{:?}", arr4.len()); // Length
+    println!(
+        "[[i32; 3] is {:?} bytes (i32*3*3 = 4bytes*3*3)",
+        std::mem::size_of_val(&arr4)
+    );
+
+    let slice: &[i32] = &arr1[1..3]; // Slice (reference)
+    println!("{:?}", slice);
+
+    // Vectors
+    println!("--- Vectors ---");
+
+    let mut numbers: Vec<i32> = vec![1, 2, 3, 4];
+    println!("{:?}, {}", numbers, numbers.len());
+    numbers.push(1337);
+    println!("{:?}", numbers);
+    numbers.pop();
+    println!("{:?}", numbers);
+    // Iteration
+    for x in numbers.iter() {
+        println!("Number: {}", x);
+    }
+    // Mutable iteration
+    for x in numbers.iter_mut() {
+        *x *= 2
+    }
+    println!("{:?}", numbers);
+}
+```
+
+## 08. Conditionals
+
